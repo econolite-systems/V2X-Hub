@@ -28,7 +28,7 @@ jobs:
     # Pull docker image 
     # XTERM used for better make output
     docker:
-      - image: usdotfhwaops/v2xhubamd:latest
+      - image: usdotfhwaops/v2xhubamd:186-sonar-scanner-fix
         environment:
           TERM: xterm
           INIT_ENV: /home/V2X-Hub/.base-image/init-env.sh
