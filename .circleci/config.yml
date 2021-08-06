@@ -24,7 +24,7 @@ version: 2
 # Upload test results
 # Every run command should start with source ${INIT_ENV} to ensure all default dependencies are available
 jobs:
-  build:
+  sonar-scanner:
     # Pull docker image 
     # XTERM used for better make output
     docker:
@@ -123,5 +123,7 @@ workflows:
           filters:
            branches:
               ignore: develop
-      - build
+      - sonar-scanner:
+          requires:
+            - docker_build&push
  
