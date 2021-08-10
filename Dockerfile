@@ -48,10 +48,15 @@ RUN cd $SONAR_DIR && \
         # Add scanner, wrapper, and jq to PATH
         sudo echo 'export PATH=$PATH:/opt/jq/:$SONAR_DIR/sonar-scanner/bin/:$SONAR_DIR/build-wrapper/' >> /home/V2X-Hub/.base-image/init-env.sh
 
-WORKDIR /home/V2X-Hub/src/tmx/
-RUN cmake .
-RUN build-wrapper-linux-x86-64 --out-dir bw-output make
-RUN make install
+# Install gcovr for code coverage tests and add code_coverage script folder to path
+RUN sudo apt-get -y install gcovr && \
+        sudo echo 'export PATH=$PATH:/home/V2X-Hub/.ci-image/engineering_tools/code_coverage/' >> /home/V2X-Hub/.base-image/init-env.sh
+
+
+#WORKDIR /home/V2X-Hub/src/tmx/
+#RUN cmake .
+#RUN build-wrapper-linux-x86-64 --out-dir /opt/V2X-Hub/bw-output bash build.sh
+#RUN make install
 
 WORKDIR /home/V2X-Hub/container/
 RUN chmod +x /home/V2X-Hub/container/library.sh
@@ -96,8 +101,7 @@ RUN make install
 
 WORKDIR /home/V2X-Hub/src/v2i-hub/
 RUN cmake . -DqserverPedestrian_DIR=/usr/local/share/qserverPedestrian/cmake -Dv2xhubWebAPI_DIR=/usr/local/share/v2xhubWebAPI/cmake/
-RUN build-wrapper-linux-x86-64 --out-dir bw-output make
-
+RUN build-wrapper-linux-x86-64 --out-dir /opt/V2X-Hub/bw-output bash build.sh
 
 RUN ln -s ../bin CommandPlugin/bin
 RUN zip CommandPlugin.zip CommandPlugin/bin/CommandPlugin CommandPlugin/manifest.json
