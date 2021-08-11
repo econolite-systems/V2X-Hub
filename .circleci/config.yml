@@ -48,6 +48,7 @@ jobs:
             source ${INIT_ENV}
             cd /home/V2X-Hub/src
             ./coverage.sh
+            ls -l
       - run:
           name: Run Sonar Scanner
           command: |
