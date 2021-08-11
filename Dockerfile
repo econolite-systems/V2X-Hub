@@ -19,44 +19,10 @@ ENV MYSQL_ROOT_PASSWORD ivp
 
 RUN mkdir ~/V2X-Hub
 COPY . /home/V2X-Hub
-
-RUN sudo mkdir /home/V2X-Hub/.base-image 
-
-ENV SONAR_DIR=/opt/sonarqube
-
-# Pull scanner from internet
-RUN sudo mkdir $SONAR_DIR && \
-        sudo curl -o $SONAR_DIR/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip && \
-        sudo curl -o $SONAR_DIR/build-wrapper.zip https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip && \
-        # Install Dependancy of NodeJs 6+
-        sudo curl -sL https://deb.nodesource.com/setup_10.x | sudo bash - && \
-        # Install JQ Json Parser Tool
-        sudo mkdir /opt/jq && \
-        sudo curl -L "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64" -o /opt/jq/jq && \
-        sudo chmod +x /opt/jq/jq
-
-# Unzip scanner
-RUN cd $SONAR_DIR && \ 
-        sudo unzip $SONAR_DIR/sonar-scanner.zip -d . && \
-        sudo unzip $SONAR_DIR/build-wrapper.zip -d . && \
-        # Remove zip files 
-        sudo rm $SONAR_DIR/sonar-scanner.zip && \
-        sudo rm $SONAR_DIR/build-wrapper.zip && \
-        # Rename files 
-        sudo mv $(ls $SONAR_DIR | grep "sonar-scanner-") $SONAR_DIR/sonar-scanner/ && \
-        sudo mv $(ls $SONAR_DIR | grep "build-wrapper-") $SONAR_DIR/build-wrapper/ && \
-        # Add scanner, wrapper, and jq to PATH
-        sudo echo 'export PATH=$PATH:/opt/jq/:$SONAR_DIR/sonar-scanner/bin/:$SONAR_DIR/build-wrapper/' >> /home/V2X-Hub/.base-image/init-env.sh
-
-# Install gcovr for code coverage tests and add code_coverage script folder to path
-RUN sudo apt-get -y install gcovr && \
-        sudo echo 'export PATH=$PATH:/home/V2X-Hub/.ci-image/engineering_tools/code_coverage/' >> /home/V2X-Hub/.base-image/init-env.sh
-
-
-#WORKDIR /home/V2X-Hub/src/tmx/
-#RUN cmake .
-#RUN build-wrapper-linux-x86-64 --out-dir /opt/V2X-Hub/bw-output bash build.sh
-#RUN make install
+WORKDIR /home/V2X-Hub/src/tmx/
+RUN cmake .
+RUN make
+RUN make install
 
 WORKDIR /home/V2X-Hub/container/
 RUN chmod +x /home/V2X-Hub/container/library.sh
@@ -99,9 +65,10 @@ RUN make install
 
 ### setup and install v2x-hub core and plugins 
 
-WORKDIR /home/V2X-Hub/src/
-RUN source /home/V2X-Hub/.base-image/.init-env.sh
-RUN build-wrapper-linux-x86-64 --out-dir /opt/V2X-Hub/bw-output bash build.sh
+WORKDIR /home/V2X-Hub/src/v2i-hub/
+RUN cmake . -DqserverPedestrian_DIR=/usr/local/share/qserverPedestrian/cmake -Dv2xhubWebAPI_DIR=/usr/local/share/v2xhubWebAPI/cmake/
+RUN make
+
 
 RUN ln -s ../bin CommandPlugin/bin
 RUN zip CommandPlugin.zip CommandPlugin/bin/CommandPlugin CommandPlugin/manifest.json
@@ -182,6 +149,38 @@ RUN tmxctl --plugin-install TimPlugin.zip
 RUN tmxctl --plugin-install CARMACloudPlugin.zip
 RUN tmxctl --plugin-install MobilityOperationPlugin.zip
 RUN tmxctl --plugin-install ODELoggerPlugin.zip
+
+RUN sudo mkdir /home/V2X-Hub/.base-image 
+
+ENV SONAR_DIR=/opt/sonarqube
+
+# Pull scanner from internet
+RUN sudo mkdir $SONAR_DIR && \
+        sudo curl -o $SONAR_DIR/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip && \
+        sudo curl -o $SONAR_DIR/build-wrapper.zip https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip && \
+        # Install Dependancy of NodeJs 6+
+        sudo curl -sL https://deb.nodesource.com/setup_10.x | sudo bash - && \
+        # Install JQ Json Parser Tool
+        sudo mkdir /opt/jq && \
+        sudo curl -L "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64" -o /opt/jq/jq && \
+        sudo chmod +x /opt/jq/jq
+
+# Unzip scanner
+RUN cd $SONAR_DIR && \ 
+        sudo unzip $SONAR_DIR/sonar-scanner.zip -d . && \
+        sudo unzip $SONAR_DIR/build-wrapper.zip -d . && \
+        # Remove zip files 
+        sudo rm $SONAR_DIR/sonar-scanner.zip && \
+        sudo rm $SONAR_DIR/build-wrapper.zip && \
+        # Rename files 
+        sudo mv $(ls $SONAR_DIR | grep "sonar-scanner-") $SONAR_DIR/sonar-scanner/ && \
+        sudo mv $(ls $SONAR_DIR | grep "build-wrapper-") $SONAR_DIR/build-wrapper/ && \
+        # Add scanner, wrapper, and jq to PATH
+        sudo echo 'export PATH=$PATH:/opt/jq/:$SONAR_DIR/sonar-scanner/bin/:$SONAR_DIR/build-wrapper/' >> /home/V2X-Hub/.base-image/init-env.sh
+
+# Install gcovr for code coverage tests and add code_coverage script folder to path
+RUN sudo apt-get -y install gcovr && \
+        sudo echo 'export PATH=$PATH:/home/V2X-Hub/.ci-image/engineering_tools/code_coverage/' >> /home/V2X-Hub/.base-image/init-env.sh
 
 
 # Set metadata labels

@@ -53,6 +53,9 @@ jobs:
           name: Run Sonar Scanner
           command: |
             source ${INIT_ENV}
+            echo $PATH
+            cd /home/V2X-Hub/src/
+            build-wrapper-linux-x86-64 --out-dir /opt/V2X-Hub/bw-output bash build.sh
             if [ -z "${CIRCLE_PULL_REQUEST}" ]; then
               echo "Non-PR Build Detected. Running analysis on ${CIRCLE_BRANCH}"
               cd /home/V2X-Hub/
