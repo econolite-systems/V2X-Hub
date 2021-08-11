@@ -100,6 +100,7 @@ RUN make install
 ### setup and install v2x-hub core and plugins 
 
 WORKDIR /home/V2X-Hub/src/
+RUN source /home/V2X-Hub/.base-image/.init-env.sh
 RUN build-wrapper-linux-x86-64 --out-dir /opt/V2X-Hub/bw-output bash build.sh
 
 RUN ln -s ../bin CommandPlugin/bin
