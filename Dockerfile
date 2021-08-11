@@ -99,8 +99,7 @@ RUN make install
 
 ### setup and install v2x-hub core and plugins 
 
-WORKDIR /home/V2X-Hub/src/v2i-hub/
-RUN cmake . -DqserverPedestrian_DIR=/usr/local/share/qserverPedestrian/cmake -Dv2xhubWebAPI_DIR=/usr/local/share/v2xhubWebAPI/cmake/
+WORKDIR /home/V2X-Hub/src/
 RUN build-wrapper-linux-x86-64 --out-dir /opt/V2X-Hub/bw-output bash build.sh
 
 RUN ln -s ../bin CommandPlugin/bin
