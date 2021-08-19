@@ -45,10 +45,13 @@ jobs:
       - run:
           name: Run Tests & Generate Gcovr Reports
           command: |
+            echo "${INIT_ENV}"
+            cat "${INIT_ENV}"
             source ${INIT_ENV}
             cd /home/V2X-Hub/src
             ./coverage.sh
             ls -l
+            ls -lrt /home/V2X-Hub
       - run:
           name: Run Sonar Scanner
           command: |
