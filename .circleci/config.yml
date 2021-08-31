@@ -129,7 +129,9 @@ jobs:
           command: |
             set -x
             cd /home/V2X-Hub-build/src
+            ls -lrt
             ./coverage.sh
+            ls -lrt
       - run:
           name: Run Sonar Scanner
           command: |
