@@ -27,10 +27,14 @@ do
             echo "$TESTS built"
             cd $d
             $TESTS
+            #gcovr -k . --sonarqube /home/V2X-Hub-build/coverage.xml
             gcovr -k .
+            ls -lrt
             mkdir coverage
             PLUGIN=`echo $d | cut -d "/" -f 2`
             mv $(ls | grep [a-zA-Z0-9#-]*$PLUGIN | grep -v test#  | grep gcov) coverage
+            ls -lrt coverage
+            pwd
             cd ../..
         else
             echo "no tests built"
@@ -51,6 +55,8 @@ do
             mkdir coverage
             TMX=`echo $d | cut -d "/" -f 2`
             mv $(ls | grep [a-zA-Z0-9#-]*$TMX | grep -v test#  | grep gcov) coverage
+            ls -lrt coverage
+            pwd
             cd ../..
         else
             echo "no tests built"
