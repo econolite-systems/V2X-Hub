@@ -33,6 +33,7 @@ do
             PLUGIN=`echo $d | cut -d "/" -f 2`
             mv $(ls | grep [a-zA-Z0-9#-]*$PLUGIN | grep -v test#  | grep gcov) coverage
             ls -lrt coverage
+            cp -r coverage/* /home/V2X-Hub-build/src
             pwd
             cd ../..
         else
@@ -55,6 +56,7 @@ do
             TMX=`echo $d | cut -d "/" -f 2`
             mv $(ls | grep [a-zA-Z0-9#-]*$TMX | grep -v test#  | grep gcov) coverage
             ls -lrt coverage
+            cp -r coverage/* /home/V2X-Hub-build/src
             pwd
             cd ../..
         else
