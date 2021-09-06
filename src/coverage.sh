@@ -30,7 +30,6 @@ do
             gcovr -k .
             ls -lrt
             mkdir coverage
-            gcovr --sonarqube coverage/coverage.xml
             PLUGIN=`echo $d | cut -d "/" -f 2`
             mv $(ls | grep [a-zA-Z0-9#-]*$PLUGIN | grep -v test#  | grep gcov) coverage
             ls -lrt coverage
@@ -53,7 +52,6 @@ do
             $TESTS
             gcovr -k .
             mkdir coverage
-            gcovr --sonarqube coverage/coverage.xml
             TMX=`echo $d | cut -d "/" -f 2`
             mv $(ls | grep [a-zA-Z0-9#-]*$TMX | grep -v test#  | grep gcov) coverage
             ls -lrt coverage
