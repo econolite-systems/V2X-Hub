@@ -123,8 +123,8 @@ jobs:
             set -x
             source /home/V2X-Hub-build/.base-image/init-env.sh
             cd /home/V2X-Hub-build/src
-            #build-wrapper-linux-x86-64 --out-dir ../bw-output ./build.sh
-             build-wrapper-linux-x86-64 --out-dir ../bw-output -m -e /home/V2X-Hub-build/src/v2i-hub/ -o ./coverage/gcov
+            build-wrapper-linux-x86-64 --out-dir ../bw-output ./build.sh
+            #build-wrapper-linux-x86-64 --out-dir ../bw-output -m -e /home/V2X-Hub-build/src/v2i-hub/ -o ./coverage/gcov
       - run:
           name: Run Tests & Generate Gcovr Reports
           command: |
