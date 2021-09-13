@@ -43,6 +43,8 @@ PedestrianPlugin::PedestrianPlugin(string name): PluginClient(name)
 
 void PedestrianPlugin::PedestrianRequestHandler(QHttpEngine::Socket *socket)
 {
+	int test = 5+1;
+	PLOG(logERROR) << "Something has changed " << std::endl;
 	auto router = QSharedPointer<OpenAPI::OAIApiRouter>::create();
 	QString st; 
 	while(socket->bytesAvailable()>0)
