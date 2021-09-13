@@ -28,9 +28,9 @@ do
             cd $d
             $TESTS
             mkdir coverage
-	    cd coverage
-	    gcovr -k ..
-            cd ../../..
+	        gcovr -k -r .
+            mv *.gcov coverage
+            cd ../..
         else
             echo "no tests built"
         fi
@@ -47,9 +47,9 @@ do
             cd $d
             $TESTS
             mkdir coverage
-	    cd coverage
-	    gcovr -k ..
-            cd ../../..
+            gcovr -k -r .
+            mv *.gcov coverage
+            cd ../..
         else
             echo "no tests built"
         fi

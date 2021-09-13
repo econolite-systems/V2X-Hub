@@ -98,6 +98,10 @@ void PreemptionPlugin::HandleBasicSafetyMessage(BsmMessage &msg, routeable_messa
 		mp->ProcessMapMessageFile(map_path);
 	}
 	int32_t bsmTmpID;
+
+	std::string test ="Some String";
+	int anotherTest= 123;
+	PLOG(logINFO) << "Testing Code coverage " << std::endl;
 	
 	auto bsm=msg.get_j2735_data();
 	unsigned char* buf = bsm->coreData.id.buf; 
