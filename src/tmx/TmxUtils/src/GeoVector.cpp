@@ -49,6 +49,7 @@ GeoVector GeoVector::WGS84PointToNVector(WGS84Point point)
 	vec._x = cos(lat) * cos(lon);
 	vec._y = cos(lat) * sin(lon);
 	vec._z = sin(lat);
+	int someint = 5 + 1;
 	return vec;
 }
 
