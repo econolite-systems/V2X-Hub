@@ -125,7 +125,7 @@ std::string DbConnectionPool::GetPwd(){
 	pwd = std::getenv(EnvVar);
 
 	if(pwd == NULL){
-		PLOG(logERROR) << "Unable to set MYSQL_PASSWORD)";
+		PLOG(logERROR) << "Unable to get MYSQL_PASSWORD)";
 		return "";
 	}
 	else{

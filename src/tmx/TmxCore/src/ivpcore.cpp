@@ -132,8 +132,8 @@ std::string GetPwd(){
 	const char* pwd;
 	pwd = std::getenv(EnvVar);
 
-	if(pwd == NULL){
-		LOG_ERROR("Unable to set MYSQL_ROOT_PASSWORD)");
+if(pwd == NULL){
+		LOG_ERROR("Unable to get MYSQL_PASSWORD)");
 		return "";
 	}
 	else{
