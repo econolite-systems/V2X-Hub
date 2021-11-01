@@ -14,3 +14,9 @@
 Dockerfile
 docker-compose.yml
 *.md
+
+.git
+.devcontainer
+.vscode
+.vs
+Dockerfile*

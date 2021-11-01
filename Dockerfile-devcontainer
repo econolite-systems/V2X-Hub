@@ -1,0 +1,3 @@
+FROM local/v2xhub-sansplugin:latest
+
+RUN apt-get update && apt-get upgrade -y  gdb mysql-client
