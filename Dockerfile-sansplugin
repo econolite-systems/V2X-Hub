@@ -1,0 +1,18 @@
+FROM local/v2xhub-base:latest
+
+COPY . /home/V2X-Hub
+WORKDIR /home/V2X-Hub/src/tmx/
+RUN cmake -DCMAKE_BUILD_TYPE=Debug --config Debug .
+RUN make
+RUN make install
+
+WORKDIR /home/V2X-Hub/container/
+RUN chmod +x /home/V2X-Hub/container/library.sh
+RUN /home/V2X-Hub/container/library.sh
+RUN ldconfig
+
+### setup and install v2x-hub core and plugins 
+
+WORKDIR /home/V2X-Hub/src/v2i-hub/
+RUN cmake -DCMAKE_BUILD_TYPE=Debug --config Debug . -DqserverPedestrian_DIR=/usr/local/share/qserverPedestrian/cmake -Dv2xhubWebAPI_DIR=/usr/local/share/v2xhubWebAPI/cmake/
+RUN make
