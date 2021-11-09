@@ -69,6 +69,7 @@ PluginClient::PluginClient(std::string name) :
 		IvpManifest *manifest = ivpRegister_getManifestFromJson(_plugin->jsonManifest);
 		if (manifest->name && strlen(manifest->name) > 0)
 			_name = string(manifest->name);
+		
 		ivpRegister_destroyManifest(manifest);
 		manifest = NULL;
 
@@ -81,7 +82,9 @@ PluginClient::PluginClient(std::string name) :
 		DbConnectionPool pool;
 		std::string pwd = pool.GetPwd();
 		// "tcp://127.0.0.1:3306","IVP", pwd, "IVP"
-		DbConnection conn = pool.Connection("tcp://127.0.0.1:3306","IVP", pwd, "IVP");
+		std::stringstream ss;
+		ss << "tcp://" << _plugin->coreIpAddr << ":3306";
+		DbConnection conn = pool.Connection(ss.str(),"IVP", pwd, "IVP");
 
 		PluginUpgrader::UpgradeDatabase(&conn, IVPUTILS_VERSION);
 	} catch (runtime_error &ex) {

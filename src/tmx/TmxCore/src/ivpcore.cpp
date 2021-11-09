@@ -150,7 +150,6 @@ if(pwd == NULL){
 
 int main()
 {
-
 	std::string env_p = GetPwd();
 	DbContext::ConnectionInformation.url = "127.0.0.1";
 	DbContext::ConnectionInformation.username = "IVP";

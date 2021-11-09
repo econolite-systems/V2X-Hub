@@ -1,0 +1,60 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    container_name: mysql
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+#    network_mode: host
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: IVP
+      MYSQL_USER: IVP
+      MYSQL_PASSWORD_FILE: /secrets/mysql_password
+      MYSQL_ROOT_PASSWORD_FILE: /secrets/mysql_root_password
+    #secrets:
+      #- mysql_password
+      #- mysql_root_password
+    volumes:
+    #  - type: bind
+    #    source: ./mysql/localhost.sql
+    #    target: /docker-entrypoint-initdb.d/localhost.sql
+      - ./mysql/localhost.sql:/docker-entrypoint-initdb.d/localhost.sql
+      - ./datadir:/var/lib/datadir
+      - ./secrets:/secrets
+
+  php:
+    image: usdotfhwaops/php:latest
+    container_name: php
+    network_mode: host
+    restart: always
+    depends_on: 
+      - db
+    stdin_open: true
+    tty: true
+
+  v2xhub:
+    image: local/v2xhub:latest
+    container_name: v2xhub
+    network_mode: host
+    restart: always
+    depends_on: 
+      - php
+    environment:
+      - MYSQL_PASSWORD=/secrets/mysql_password
+    # secrets:
+    #   - mysql_password
+    volumes:
+      - ./logs:/var/log/tmx
+      - ./MAP:/var/www/plugins/MAP
+      - ./secrets:/secrets
+
+secrets:
+    mysql_password:
+        file: $PWD/secrets/mysql_password.txt
+    mysql_root_password:
+        file: ./secrets/mysql_root_password.txt
