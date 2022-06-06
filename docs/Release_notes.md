@@ -1,5 +1,122 @@
 V2X-Hub Release Notes
 ----------------------------
+Version 7.2.3, released May 19th, 2022
+--------------------------------------------------------
+**Summary:**
+V2X Hub release 7.2.3 includes added hot fix for MobilityRequest and MobilityResponse ASN1 Compiler generated encoding/decoding code for Voices project.
+
+Bug fixes in this release:
+- Issue 372: After getting the dsrc messages from a vehicle, the v2xhub message receiver is able to pass it to other plugins. However, the other plugins experience decoding issues trying to filter MobilityRequest and MobilityResponse messages.
+
+Enhancements in this release:
+ - Issue 369:Add CircleCI workflow that is triggered on numeric github tags on only the master branch. This workflow will be dependent on the build and push workflows for both ARM and AMD images. The workflow will then pull, retag with the github tag name, and push release images.
+
+------------------------------
+Version 7.2.2, released May 9th, 2022
+--------------------------------------------------------
+**Summary:**
+V2X Hub release 7.2.2 includes added Hotfix for CARMACloud Plugin to configure repeated TCM broadcast. V2xhub can control the number of times each TCM being repeatedly broadcast upon receiving TCMs from carma-cloud until an TCM acknowledgement is received from the vehicle. After waiting for a configurable time duration to receive TCM acknowledgement, it sends a time out message to carma-cloud notifying that no response from CMV for TCMs. The no response message will be displayed as a warning on the v2xhub admin user interface. If V2xHub receives an acknowledgement from CMV, it will stop broadcasting TCMs and display the acknowledgement on the v2xhub admin user interface and sends the acknowledgement to carma-cloud:
+
+Bug fixes in this release:
+- Issue 364: Removing existing TCMs when receiving multiple TCRs with same request ID.Add time out logic for each TCR upon repeatedly broadcast associated TCMs.Fix time out logic that cause segmentation fault.Add configuration parameter to update thread sleep time.Add configuration parameter and logic to control the number times that TCMs can repeatedly broadcast.For each acknowledgement it receives from CMV, it only removes one TCM from the list.
+----------------------------
+Version 7.2.1, released April 15th, 2022
+--------------------------------------------------------
+V2X Hub release 7.2.1 includes added functionality for the CARMACloud Plugin to support a hot fix for positive acknowledgment:
+- Issue 352: Fix reason field data to display complete reason information.
+
+Version 7.2, released April 12th, 2022
+--------------------------------------------------------
+
+**Summary:**
+V2X Hub release 7.2 includes added functionality for the CARMACloud Plugin to support:
+- Issue 348:Receiving vehicle TCM acknowledgement messages and displaying appropriate positive/negative/no acknowledgement messages on V2X-Hub web UI.
+- Issue 348:Fowarding TCM acknowledgement message (negative/no) to CARMACloud.
+
+Enhancements in this release:
+- Issue 328: Upgrade base image for V2X-Hub to ubuntu 20
+- Issue 349: Added example BSM plugin to show how to use PluginClient's BroadcastMessage message to broadcast BSM
+- Issue 350: Added MobilityRequest and MobilityResponse ASN1 encoding and decoding 
+
+Bug fixes in this release:
+- Issue 337: fixed add user script
+- Issue 310: fixed possible Spat memory leak
+- Issue 322: Fixed php and port_drayage_web_service ARM image builds
+
+Version 7.1, released Feb 3rd, 2022
+--------------------------------------------------------
+
+**Summary:**
+V2X Hub release 7.1 includes a CARMA streets plugin for the following operations:
+- Receive, decode and forward the BSM, Mobility Operations Message and Mobility Path Message to CARMA Streets.
+- Broadcast schedule plan using Mobility Operations Message received from CARMA Streets.
+
+Enhancements in this release:
+- Issue 262: Updated CARMA Streets plugin to receive and decode Mobility Path messages into JSON through Kafka.
+- Issue 271: Added Filter Message for BSM and Mobility Operation messages. Publish the decoded BSM and Mobility Operation messages to two different Kafka topics.
+Subscribe to Kafka topic to get scheduling plan from CARMA streets. Create a new Mobility Operation message and fill it with scheduling plan data.
+Added functionalities to encode Mobility Operation messages, and send it to DSRC manager for broadcast. 
+- Issue 317: Updated message receiver plugin to disable the J2735 message signature verification by default we allow users to start up the system with default configurations also go through the setup for this security feature.
+
+Bug fixes in this release:
+- Issue 264: Fixed Dependencies Issues, added Carma-streets related data in SQL and Updated plugin install and Docker file to include Carma-streets plugin.
+- Issue 314: Fixed few bugs for Carma-street Plugin as below:
+     1.	Logging to PLOG statements
+     2.	Consolidate logging statements to decrease cognitive complexity
+     3.	Added message types to manifest JSON
+     4.	Removed old Docker-compose files
+     5.	Added CARMA Streets Plugin to sonar analysis
+- Issue 289: Fixed ET and DT order in the strategy parameters in Carma-streets Plugin CPP file.
+
+Version 7.0, released Dec 29th, 2021
+--------------------------------------------------------
+
+**Summary:**
+V2X Hub 7.0 includes new security features to integrate SoftHSM into V2X Hub. Two V2X Hub plugins have been updated to support message verification and signing for SPaT, MAP and BSM messages.
+
+Enhancements in this release:
+- Issue 278: The following Security changes have been made to the V2xHub code bases.
+    1.The Message Receiver and Immediate Forward plugins have the security features added. This allows any messages to and from RSU to be both signed and verified.
+    2.The V2X Hub Admin portal can be used to enable and disable security for the two plugins.
+    3.The SoftHSM implementation requires base64 formatted messages for signing or verification requests
+
+Fixes in this release:
+-	Issue 253: Fixed sonar scan memory leak issues for preemption plugin.
+
+Version 6.3, released Dec 17th, 2021
+--------------------------------------------------------
+
+**Summary:**
+V2X Hub release version 6.3 is a hotfix release for 6.0.
+
+Enhancements in this release:
+-	Issue 290: Implemented several UI changes to the Port Drayage Web Service for CARMA-Freight as below.
+1.	Added landing page with CARMA-Streets Logo and Description
+2.	Added Tab Icons and tab notifications
+3.	Added Footer with FHWA and MARAD logos
+4.	Added indication of operation area (PORT or STAGING) 
+
+Fixes in this release:
+-	Issue 287: Updated image tags for arm64 and amd64 Docker-compose deployments to use 6.2 release images instead of release candidate images.
+
+Version 6.2, released Dec 10th, 2021
+--------------------------------------------------------
+
+**Summary:**
+V2X Hub release version 6.2 is a hotfix release for 6.0.
+
+Enhancements in this release:
+- Issue 268: Added Spring Boot Port Drayage Web Service which includes Open API, REST API and Implemented Spring boot REST server. Added Maven pom.xml for Open API Spring boot server code generation. Updated Maven pom.xml for unit test and Jacoco unit test coverage report.
+-	Issue 255: Created Lightweight V2X-Hub Deployment Image by removing unnecessary apt-get tools and libraries installed and unnecessary files included in build context and any steps not necessary for V2X-Hub deployment.
+-	Issue 272: Added REST Client to Port Drayage Plugin. Changes consist of Qt REST ext/pdclient library generated using Open API code gen and added logic to request and poll loading/unloading and inspection actions from web service, and added Port Drayage Plugin in sonar scanner properties.
+-	Issue 279&281: Implementing Port Drayage Plugin CI/CD integration by Adding Docker file, Circle CI build and Push workflow and Docker-compose setup for Port Drayage Web service and updated DSRC Immediate Forward Plugin Configurations to include Mobility Operation message by default.
+-	Issue 282: Added Clear button for web service to clear existing actions to allow for repeated executions of the same sequence of actions without requiring restart of web service.
+
+Fixes in this release:
+-	Issue 213: Fixed PLOG and FILE_LOG logic where PLOG never prints statements and FILE_LOG only prints error level statements.  Discovered and fixed some segmentation faults in Qt HTTP client code and Tmxctl CLI calls to obtain correct MySQL credentials.
+-	Issue 257: Fixed DB Connection Pool Logging to debug the Docker secrets deployment implementation was unintentionally kept in V2X-Hub which cause V2X-Hub to print the MySQL password it uses every time it attempts to authenticate to MySQL.
+-	Issue 260: Fixed Sonar scan issues found in Preemption Plugin during V2xhub sonar scanning.
+-	Issue 280: Fixed the mobility operation messages used for Vehicle and Infrastructure communication does not indicate the origin of the message where infrastructure may attempt to respond to other infrastructure communication.
 
 Version 6.1, released Oct 15th, 2021
 --------------------------------------------------------
