@@ -106,3 +106,4 @@ src/v2i-hub/PortDrayagePlugin/PortDrayagePlugin_autogen
 src/v2i-hub/PreemptionPlugin/runPreemptionTests
 src/v2i-hub/SpatPlugin/SpatPlugin_test
 ext/pdclient/install_manifest.txt
+ext/libwebsockets

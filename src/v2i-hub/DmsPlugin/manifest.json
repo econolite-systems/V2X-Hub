@@ -1,7 +1,7 @@
 {
 	"name":"DynamicMessageSign",
 	"description":"Provides communication to a dynamic message sign.",
-	"version":"@PROJECT_VERSION@",
+	"version":"5.0",
 	"exeLocation":"/bin/DmsPlugin",
 	"coreIpAddr":"127.0.0.1",
 	"corePort":24601,

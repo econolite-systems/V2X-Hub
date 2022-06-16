@@ -39,7 +39,7 @@ protected:
 	void HandleDataChangeMessage(DataChangeMessage &msg, routeable_message &routeableMsg);
 private:
 	std::atomic<uint64_t> _frequency{0};
-	DATA_MONITOR(_frequency);   // Declares the plugin monitor
+	DATA_MONITOR(_frequency);   // Declares the monitoring of _frequency
 	Controller _controller;
 };
 
@@ -81,6 +81,8 @@ void PriorityRequestPlugin::UpdateConfigSettings()
 void PriorityRequestPlugin::OnConfigChanged(const char *key, const char *value)
 {
 	PluginClient::OnConfigChanged(key, value);
+
+	// Just update everything
 	UpdateConfigSettings();
 }
 

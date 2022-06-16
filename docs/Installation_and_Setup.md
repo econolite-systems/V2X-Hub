@@ -53,7 +53,7 @@ $ sudo make install
 
 $ cd ext/server
 $ cmake .
-$ make 
+$ sudo make 
 $ sudo make install 
 ```
 Googletest is another utility used by the V2X-hub for unit tests. Here are the steps to install googletest. The googletest application has to be installed in the prerequisite step first before proceeding. 
@@ -77,7 +77,7 @@ $ sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/googletest/libgtest_main.a
 Now, run the following commands from V2X-Hub directory.
 ```
 $ cd src/v2i-hub
-$ cmake . -DqserverPedestrian_DIR=/usr/local/share/qserverPedestrian/cmake
+$ cmake cd 
 $ make
 ```
 

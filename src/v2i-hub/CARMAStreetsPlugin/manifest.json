@@ -1,7 +1,7 @@
 {
     "name": "CARMAStreetsPlugin",
     "description": "Plugin to communicate with CARMA Streets via Apache Kafka",
-    "version": "@PROJECT_VERSION@",
+    "version": "5.0",
     "exeLocation": "/bin/CARMAStreetsPlugin",
     "coreIpAddr": "127.0.0.1",
     "corePort": 24601,

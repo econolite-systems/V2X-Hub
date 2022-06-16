@@ -1,7 +1,7 @@
 {
 	"name":"PortDrayagePlugin",
 	"description":"PortDrayagePlugin for sending freight trucks automated actions in a port.",
-	"version":"@PROJECT_VERSION@",
+	"version":"5.0",
 	"exeLocation":"/bin/PortDrayagePlugin",
 	"coreIpAddr":"127.0.0.1",
 	"corePort":24601,
