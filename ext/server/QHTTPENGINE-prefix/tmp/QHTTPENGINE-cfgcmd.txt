@@ -1,1 +1,1 @@
-cmd='/usr/bin/cmake;-DCMAKE_INSTALL_PREFIX=/home/saxtonlab/V2X-Hub/ext/server/external;-DCMAKE_PREFIX_PATH=;-GUnix Makefiles;<SOURCE_DIR><SOURCE_SUBDIR>'
+cmd='/usr/bin/cmake;-DCMAKE_INSTALL_PREFIX=/home/raysmith/src/local-v2x-hub/ext/server/external;-DCMAKE_PREFIX_PATH=;-GUnix Makefiles;<SOURCE_DIR><SOURCE_SUBDIR>'

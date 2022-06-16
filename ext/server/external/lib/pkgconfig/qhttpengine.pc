@@ -1,4 +1,4 @@
-prefix=/home/saxtonlab/V2X-Hub/ext/server/external
+prefix=/home/raysmith/src/local-v2x-hub/ext/server/external
 libdir=${prefix}/lib
 includedir=${prefix}/include
 

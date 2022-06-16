@@ -30,7 +30,9 @@ $ sudo ldconfig
 The V2X Hub supplied plugins have a dependency on a version of libwebsockets that is newer than the installable package that comes with Ubuntu. Hence a custom version of the software has benn forked and made available with V2X-Hub. Run the following commands from V2X-Hub directory.
 
 ```
-$ cd ext/libwebsockets
+$ cd ext
+$ git clone https://github.com/usdot-fhwa-OPS/libwebsockets.git
+$ cd libwebsockets
 $ cmake -DLWS_WITH_SHARED=OFF .
 $ make
 $ sudo make install

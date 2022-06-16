@@ -94,3 +94,15 @@ tools/port-drayage-webservice/target/
 
 #Java PKS for HTTPS setup
 tools/port-drayage-webservice/src/main/resources/tutorial.jks
+
+#External Dependancies
+ext/qhttpengine*
+ext/ccserver/QHTTPENGINE*
+ext/ccserver/external
+ext/ccserver/src/v2xhubWebAPI*
+ext/pdclient/pdclient_autogen
+src/v2i-hub/PedestrianPlugin/runPedestrianTests
+src/v2i-hub/PortDrayagePlugin/PortDrayagePlugin_autogen
+src/v2i-hub/PreemptionPlugin/runPreemptionTests
+src/v2i-hub/SpatPlugin/SpatPlugin_test
+ext/pdclient/install_manifest.txt
