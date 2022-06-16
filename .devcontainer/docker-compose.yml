@@ -1,0 +1,11 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  v2xhub-dev:
+    image: local/v2xhub-sansplugin:latest
+    container_name: v2xhub-dev
+    network_mode: host
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    entrypoint: /bin/sh -c "while sleep 1000; do :; done"
