@@ -36,7 +36,7 @@ ntcip1211::prgPriorityStatusBuffer Controller::PollPriorityRequestStatus() const
     return statusbuffer;
 }
 
-bool Controller::SendPriorityRequestStatus(const struct ntcip1211::prgPriorityRequest &request) const
+bool Controller::SendPriorityRequest(const struct ntcip1211::prgPriorityRequest &request) const
 {
     const int size = sizeof(ntcip1211::prgPriorityRequest);
     bool result = false;

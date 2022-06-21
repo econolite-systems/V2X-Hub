@@ -34,7 +34,7 @@ public:
 
     ntcip1211::prgPriorityStatusBuffer PollPriorityRequestStatus() const;
 
-    bool SendPriorityRequestStatus(const struct ntcip1211::prgPriorityRequest &request) const;
+    bool SendPriorityRequest(const struct ntcip1211::prgPriorityRequest &request) const;
 };
 
 #endif // _PRIORITYREQUESTCONTROLLER_H_

@@ -8,6 +8,7 @@
 
 #include "PluginClient.h"
 #include "PluginDataMonitor.h"
+#include "PriorityRequestMessage.h"
 
 #include <atomic>
 #include <thread>
@@ -37,6 +38,7 @@ protected:
 	void OnStateChange(IvpPluginState state);
 
 	void HandleDataChangeMessage(DataChangeMessage &msg, routeable_message &routeableMsg);
+	void HandlePriorityRequest(PriorityRequest::PriorityRequestMessage &msg, routeable_message &routeableMsg);
 private:
 	std::atomic<uint64_t> _frequency{0};
 	DATA_MONITOR(_frequency);   // Declares the monitoring of _frequency
@@ -52,6 +54,9 @@ PriorityRequestPlugin::PriorityRequestPlugin(string name): PluginClient(name), _
 {
 	// The log level can be changed from the default here.
 	FILELog::ReportingLevel() = FILELog::FromString("DEBUG");
+
+	// 
+	AddMessageFilter<PriorityRequest::PriorityRequestMessage>(this, &PriorityRequestPlugin::HandlePriorityRequest);
 
 	// This is an internal message type that is used to track some plugin data that changes
 	AddMessageFilter<DataChangeMessage>(this, &PriorityRequestPlugin::HandleDataChangeMessage);
@@ -97,7 +102,24 @@ void PriorityRequestPlugin::OnStateChange(IvpPluginState state)
 	}
 }
 
-// Example of handling
+// Handle priority request messages
+void PriorityRequestPlugin::HandlePriorityRequest(PriorityRequest::PriorityRequestMessage &msg, routeable_message &routeableMsg)
+{
+	ntcip1211::prgPriorityRequest request;
+	request.requestID = msg.get_RequestID();
+	std::string vehicleid = msg.get_VehicleID();
+	vehicleid.resize(17);
+	memcpy(request.vehicleID, vehicleid.c_str(), 17);
+	request.vehicleClassType = msg.get_RequestID();
+	request.vehicleClassLevel = msg.get_VehicleClassLevel();
+	request.StrategyNumber = msg.get_StrategyNumber();
+	request.TimeOfServiceDesired = msg.get_TimeOfServiceDesired();
+	request.TimeOfEstimatedDeparture = msg.get_TimeOfEstimatedDeparture();
+	
+	_controller.SendPriorityRequest(request);
+}
+
+// Handle data changed message
 void PriorityRequestPlugin::HandleDataChangeMessage(DataChangeMessage &msg, routeable_message &routeableMsg)
 {
 	PLOG(logINFO) << "Received a data change message: " << msg;
