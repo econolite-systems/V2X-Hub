@@ -290,7 +290,8 @@ void MessageLoggerPlugin::HandleBasicSafetyMessage(BsmMessage &msg,
 
 		cJSON_AddItemToObject(BsmRoot, "BsmMessageContent", BsmMessageContent); // add BsmMessageContent array to Bsmroot
 
-		PLOG(logDEBUG)<<"Logging BasicSafetyMessage data";
+		PLOG(logDEBUG
+		)<<"Logging BasicSafetyMessage data";
 
 		cJSON_AddItemToArray(BsmMessageContent, _BsmMessageContent = cJSON_CreateObject()); //add message content to BsmMessageContent array
 		cJSON_AddItemToObject(_BsmMessageContent, "DSRC_MessageID", cJSON_CreateNumber(DSRCmsgID_basicSafetyMessage)); // DSRC_MessageID,  vehicle_ID

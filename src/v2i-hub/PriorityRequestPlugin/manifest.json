@@ -1,16 +1,11 @@
 {
 	"name":"PriorityRequest",
 	"description":"Priority Request Plugin.",
-	"version":"@PROJECT_VERSION@",
+	"version":"3.0.0",
 	"exeLocation":"/bin/PriorityRequestPlugin",
 	"coreIpAddr":"127.0.0.1",
 	"corePort":24601,
 	"messageTypes":[
-		{
-			"type":"J2735",
-			"subtype":"TIM",
-			"description":"Traveler Information Message with ..."
-		}
 	],
 	"configuration":[
 		{

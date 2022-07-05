@@ -1,0 +1,22 @@
+{
+	"name":"PriorityRequestServer",
+	"description":"Priority Request Server Plugin.",
+	"version":"3.0.0",
+	"exeLocation":"/bin/PRSPlugin",
+	"coreIpAddr":"127.0.0.1",
+	"corePort":24601,
+	"messageTypes":[
+	],
+	"configuration":[
+		{
+			"key":"PRSIP",
+			"default":"127.0.0.1",
+			"description":"IP address for the PRS network connection."
+		},
+		{
+			"key":"PRSPort",
+			"default":"4242",
+			"description":"Port for the PRS network connection."
+		}
+	]
+}
