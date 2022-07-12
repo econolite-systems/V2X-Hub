@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'socket_p.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.12.8)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.5)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'socket_p.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.12.8. It"
+#error "This file was generated using the moc from 5.9.5. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -47,7 +47,7 @@ QT_MOC_LITERAL(5, 61, 21) // "onReadChannelFinished"
 static const uint qt_meta_data_QHttpEngine__SocketPrivate[] = {
 
  // content:
-       8,       // revision
+       7,       // revision
        0,       // classname
        0,    0, // classinfo
        3,   14, // methods
@@ -73,7 +73,7 @@ static const uint qt_meta_data_QHttpEngine__SocketPrivate[] = {
 void QHttpEngine::SocketPrivate::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<SocketPrivate *>(_o);
+        SocketPrivate *_t = static_cast<SocketPrivate *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->onReadyRead(); break;
@@ -84,14 +84,10 @@ void QHttpEngine::SocketPrivate::qt_static_metacall(QObject *_o, QMetaObject::Ca
     }
 }
 
-QT_INIT_METAOBJECT const QMetaObject QHttpEngine::SocketPrivate::staticMetaObject = { {
-    &QObject::staticMetaObject,
-    qt_meta_stringdata_QHttpEngine__SocketPrivate.data,
-    qt_meta_data_QHttpEngine__SocketPrivate,
-    qt_static_metacall,
-    nullptr,
-    nullptr
-} };
+const QMetaObject QHttpEngine::SocketPrivate::staticMetaObject = {
+    { &QObject::staticMetaObject, qt_meta_stringdata_QHttpEngine__SocketPrivate.data,
+      qt_meta_data_QHttpEngine__SocketPrivate,  qt_static_metacall, nullptr, nullptr}
+};
 
 
 const QMetaObject *QHttpEngine::SocketPrivate::metaObject() const
